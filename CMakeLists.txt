@@ -1,14 +1,17 @@
-cmake_minimum_required(VERSION 2.8.2)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_POLICY(SET CMP0048 OLD)
+PROJECT(compilers_implementation)
 
-project(googletest-download NONE)
+SET(CMAKE_CXX_STANDARD 14)
 
-include(ExternalProject)
-ExternalProject_Add(googletest-download
-                    GIT_REPOSITORY;https://github.com/google/googletest.git;GIT_TAG;master;UPDATE_DISCONNECTED 1
-                    SOURCE_DIR          "/mnt/c/Users/user/Documents/cs3402-lab4-main/build/googletest-src"
-                    BINARY_DIR          "/mnt/c/Users/user/Documents/cs3402-lab4-main/build/googletest-build"
-                    CONFIGURE_COMMAND   ""
-                    BUILD_COMMAND       ""
-                    INSTALL_COMMAND     ""
-                    TEST_COMMAND        ""
-)
+# Google Benchmark and Google Test
+SET(BENCHMARK_ENABLE_TESTING OFF)
+SET(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
+INCLUDE(cmake/ConfigGBench.cmake)
+INCLUDE(cmake/ConfigGTest.cmake)
+
+ENABLE_TESTING()
+
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/compilers/)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/tests/)
+#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/benchmarks/)
